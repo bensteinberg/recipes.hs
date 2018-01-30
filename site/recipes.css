@@ -1,0 +1,27 @@
+html {
+     font-family: Verdana;
+}
+
+body {
+     padding-left: 15em;
+}
+
+dt {
+   width: 30em;
+   background-color: lightgray;
+   font-size: 120%;
+   padding: 10px;
+}
+
+dd {
+   width: 30em;
+}
+
+span#ingredient {
+	      font-weight: bold;
+}
+
+span.source {	
+	    font-size: 80%;
+	    float: right;
+}
