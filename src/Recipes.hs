@@ -9,6 +9,7 @@ module Recipes
     , Recipe
     , Recipes
     , Ingredient
+    , recipeAPI
     ) where
 
 import qualified Data.Text as T
@@ -53,6 +54,9 @@ type RecipeAPI = "recipes" :> Get '[JSON] Recipes
 type StaticAPI = "" :> Raw
 
 type ComboAPI = RecipeAPI :<|> Raw
+
+recipeAPI :: Proxy RecipeAPI
+recipeAPI = Proxy
 
 api :: Proxy ComboAPI
 api = Proxy
