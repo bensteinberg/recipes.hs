@@ -6,6 +6,9 @@
 module Recipes
     ( startApp
     , app
+    , Recipe
+    , Recipes
+    , Ingredient
     ) where
 
 import qualified Data.Text as T
