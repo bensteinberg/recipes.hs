@@ -1,8 +1,21 @@
 $(document).ready(function() {
     $.getJSON('recipes', function(data) {
-	display_recipes(data);
+	if (window.location.search) {
+	    var urlParams = new URLSearchParams(window.location.search);
+	    if (urlParams.has("search")) {
+		var s = decodeURI(urlParams.get('search'));
+		$("input").val(s);
+		display_recipes(find_recipes(data, s));
+	    } else {
+		display_recipes(data);
+	    }
+	} else {
+	    display_recipes(data);
+	}
+	var stateObj = { search: "" };
 	$("input").keyup(function() {
 	    display_recipes(find_recipes(data, $(this).val()));
+	    history.pushState(stateObj, "search", "?search=" + $(this).val());
 	});
     });
 });
