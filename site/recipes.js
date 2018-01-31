@@ -31,6 +31,8 @@ function find_recipes(recipes, text) {
 		hits[tokens[token]] = 0;
 		regex = new RegExp(tokens[token], "i");
 		if (element["name"].search(regex) != -1 ||
+		    // latinise found at
+		    // https://stackoverflow.com/a/9667817/4074877
 		    element["name"].latinise().search(regex) != -1) {
 		    hits[tokens[token]] += 1;
 		} else {
