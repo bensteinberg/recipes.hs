@@ -2,3 +2,4 @@
 /.stack-work/
 # put recipes.yaml here
 /data/
+/dist/
