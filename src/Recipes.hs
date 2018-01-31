@@ -62,7 +62,7 @@ api :: Proxy ComboAPI
 api = Proxy
 
 startApp :: IO ()
-startApp = run 8081 app
+startApp = run 26544 app
 
 app :: Application
 app = serve api server3

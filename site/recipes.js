@@ -30,11 +30,13 @@ function find_recipes(recipes, text) {
 	    for (token in tokens) {
 		hits[tokens[token]] = 0;
 		regex = new RegExp(tokens[token], "i");
-		if (element["name"].search(regex) != -1) {
+		if (element["name"].search(regex) != -1 ||
+		    element["name"].latinise().search(regex) != -1) {
 		    hits[tokens[token]] += 1;
 		} else {
 		    for (var item in element["ingredients"]) {
-			if (element["ingredients"][item]["ingredient"].search(regex) != -1) {
+			if (element["ingredients"][item]["ingredient"].search(regex) != -1 ||
+			    element["ingredients"][item]["ingredient"].latinise().search(regex) != -1) {
 			    hits[tokens[token]] += 1;
 			}
 		    }
