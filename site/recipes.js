@@ -7,16 +7,16 @@ function ready(fn) {
 }
 
 function drf() {
-    var request = new XMLHttpRequest();
+    let request = new XMLHttpRequest();
     request.open('GET', 'recipes', true);
     request.onload = function() {
 	if (request.status >= 200 && request.status < 400) {
 	    // Success!
-	    var data = JSON.parse(request.responseText);
+	    let data = JSON.parse(request.responseText);
 	    if (window.location.search) {
-		var urlParams = new URLSearchParams(window.location.search);
+		let urlParams = new URLSearchParams(window.location.search);
 		if (urlParams.has("search")) {
-		    var s = decodeURI(urlParams.get('search'));
+		    let s = decodeURI(urlParams.get('search'));
 		    document.querySelector('input').value = s;
 		    display_recipes(find_recipes(data, s));
 		} else {
@@ -25,54 +25,53 @@ function drf() {
 	    } else {
 		display_recipes(data);
 	    }
-	    var stateObj = { search: "" };
-	    var input = document.querySelector('input');
+	    let stateObj = { search: "" };
+	    let input = document.querySelector('input');
 	    input.onkeyup = function() {
 		display_recipes(find_recipes(data, input.value));
 		history.pushState(stateObj, "search", "?search=" + input.value);
 	    };
 	} else {
-	    // We reached our target server, but it returned an error
-	    console.log("no recipes");
+	    console.log("server error - no recipes");
 	}
     };
 
     request.onerror = function() {
-	// There was a connection error of some sort
-	console.log("error");
+	console.log("connection error");
     };
 
     request.send();
 }
 
 function find_recipes(recipes, text) {
-    var filtered = [];
+    let filtered = [];
     if (text != '') {
-	var tokens = text.split(' ');
+	let tokens = text.split(' ');
 	tokens = tokens.filter(function(n) {return n});
 	filtered = recipes.filter(function(element, index, array) {
-	    var hits = new Array();
-	    for (token in tokens) {
+	    let hits = new Array();
+	    for (const token in tokens) {
 		hits[tokens[token]] = 0;
-		regex = new RegExp(tokens[token], "i");
-		if (element["name"].search(regex) != -1 ||
-		    // latinise found at
-		    // https://stackoverflow.com/a/9667817/4074877
-		    element["name"].latinise().search(regex) != -1) {
+		let regex = new RegExp(tokens[token], "i");
+		// latinise from https://stackoverflow.com/a/9667817/4074877
+		if (regex.test(element['name'].latinise()) ||
+		    regex.test(element['name'])) {
 		    hits[tokens[token]] += 1;
 		} else {
-		    for (var item in element["ingredients"]) {
-			if (element["ingredients"][item]["ingredient"].search(regex) != -1 ||
-			    element["ingredients"][item]["ingredient"].latinise().search(regex) != -1) {
+		    for (const item in element["ingredients"]) {
+			if (regex.test(element["ingredients"][item]["ingredient"].latinise()) ||
+			    regex.test(element["ingredients"][item]["ingredient"])) {
 			    hits[tokens[token]] += 1;
+			    break;
 			}
 		    }
-		    if (element["source"].search(regex) != -1) {
+		    if (regex.test(element["source"].latinise()) ||
+			regex.test(element["source"])) {
 			hits[tokens[token]] += 1;
 		    }
 		}
 	    }
-	    for (token in tokens) {
+	    for (const token in tokens) {
 		if (hits[tokens[token]] == 0) {
 		    return false;
 		}
@@ -90,9 +89,9 @@ function display_recipes(filtered) {
 	el.parentNode.removeChild(el);
     });
     document.querySelector('span#count').textContent = filtered.length;
-    var html = "<dl>";
+    let html = "<dl>";
     filtered.sort(function(a,b) {
-	var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase()
+	let nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase()
 	if (nameA < nameB) {
 	    return -1
 	}
@@ -101,7 +100,7 @@ function display_recipes(filtered) {
 	}
 	return 0 //default return value (no sorting)
     });
-    for (recipe in filtered) {
+    for (const recipe in filtered) {
 	html = html +  "<dt><span class='name'>" + filtered[recipe]["name"] + "</span><span class='source'>" + filtered[recipe]["source"] + "</span></dt>";
 	html = html +  "<dd>";
 	for (item in filtered[recipe]["ingredients"]) {
