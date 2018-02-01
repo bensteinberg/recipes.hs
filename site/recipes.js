@@ -1,24 +1,49 @@
-$(document).ready(function() {
-    $.getJSON('recipes', function(data) {
-	if (window.location.search) {
-	    var urlParams = new URLSearchParams(window.location.search);
-	    if (urlParams.has("search")) {
-		var s = decodeURI(urlParams.get('search'));
-		$("input").val(s);
-		display_recipes(find_recipes(data, s));
+function ready(fn) {
+  if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}
+
+function drf() {
+    var request = new XMLHttpRequest();
+    request.open('GET', 'recipes', true);
+    request.onload = function() {
+	if (request.status >= 200 && request.status < 400) {
+	    // Success!
+	    var data = JSON.parse(request.responseText);
+	    if (window.location.search) {
+		var urlParams = new URLSearchParams(window.location.search);
+		if (urlParams.has("search")) {
+		    var s = decodeURI(urlParams.get('search'));
+		    document.querySelector('input').value = s;
+		    display_recipes(find_recipes(data, s));
+		} else {
+		    display_recipes(data);
+		}
 	    } else {
 		display_recipes(data);
 	    }
+	    var stateObj = { search: "" };
+	    var input = document.querySelector('input');
+	    input.onkeyup = function() {
+		display_recipes(find_recipes(data, input.value));
+		history.pushState(stateObj, "search", "?search=" + input.value);
+	    };
 	} else {
-	    display_recipes(data);
+	    // We reached our target server, but it returned an error
+	    console.log("no recipes");
 	}
-	var stateObj = { search: "" };
-	$("input").keyup(function() {
-	    display_recipes(find_recipes(data, $(this).val()));
-	    history.pushState(stateObj, "search", "?search=" + $(this).val());
-	});
-    });
-});
+    };
+
+    request.onerror = function() {
+	// There was a connection error of some sort
+	console.log("error");
+    };
+
+    request.send();
+}
 
 function find_recipes(recipes, text) {
     var filtered = [];
@@ -61,8 +86,10 @@ function find_recipes(recipes, text) {
 }
 
 function display_recipes(filtered) {
-    $("dl").remove();
-    $("span#count").text(filtered.length);
+    Array.prototype.forEach.call(document.querySelectorAll('dl'), function(el, i){
+	el.parentNode.removeChild(el);
+    });
+    document.querySelector('span#count').textContent = filtered.length;
     var html = "<dl>";
     filtered.sort(function(a,b) {
 	var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase()
@@ -86,5 +113,7 @@ function display_recipes(filtered) {
 	html = html + "</dd>";
     }
     html = html + "</dl>";
-    $("span").after(html);
+    document.querySelector('span#count').insertAdjacentHTML('afterend', html);
 }
+
+ready(drf);
