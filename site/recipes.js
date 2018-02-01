@@ -6,16 +6,15 @@ function ready(fn) {
   }
 }
 
-function drf() {
+function go() {
     let request = new XMLHttpRequest();
     request.open('GET', 'recipes', true);
     request.onload = function() {
 	if (request.status >= 200 && request.status < 400) {
-	    // Success!
 	    let data = JSON.parse(request.responseText);
 	    if (window.location.search) {
 		let urlParams = new URLSearchParams(window.location.search);
-		if (urlParams.has('search')) {
+		if (urlParams.has('search') && urlParams.get('search')) {
 		    let s = decodeURI(urlParams.get('search'));
 		    document.querySelector('input').value = s;
 		    display_recipes(find_recipes(data, s));
@@ -32,22 +31,22 @@ function drf() {
 		history.pushState(stateObj, 'search', '?search=' + input.value);
 	    };
 	} else {
-	    console.log('server error - no recipes');
+	    err('<p>Server status ' + request.status + ' - no recipes today</p>');
 	}
     };
     request.onerror = function() {
-	console.log('connection error');
+	err('<p>Connection error - no recipes today</p>');
     };
     request.send();
 }
 
+function err(text) {
+    document.querySelector('input').outerHTML = text;
+}
+
 // latinise from https://stackoverflow.com/a/9667817/4074877
 function test_latinised(regex, text) {
-    if (regex.test(text.latinise()) || regex.test(text)) {
-	return true;
-    } else {
-	return false;
-    }
+    return (regex.test(text.latinise()) || regex.test(text));
 }
 
 function find_recipes(recipes, text) {
@@ -96,14 +95,7 @@ function display_recipes(filtered) {
     let c = document.querySelector('span#count');
     c.textContent = filtered.length;
     filtered.sort(function(a,b) {
-	let nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase()
-	if (nameA < nameB) {
-	    return -1
-	}
-	if (nameA > nameB) {
-	    return 1
-	}
-	return 0 //default return value (no sorting)
+	return a.name.localeCompare(b.name);
     });
     let html = "<dl>";
     for (const recipe in filtered) {
@@ -124,4 +116,4 @@ function display_recipes(filtered) {
     c.insertAdjacentHTML('afterend', html);
 }
 
-ready(drf);
+ready(go);
