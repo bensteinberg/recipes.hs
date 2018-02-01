@@ -15,7 +15,7 @@ function drf() {
 	    let data = JSON.parse(request.responseText);
 	    if (window.location.search) {
 		let urlParams = new URLSearchParams(window.location.search);
-		if (urlParams.has("search")) {
+		if (urlParams.has('search')) {
 		    let s = decodeURI(urlParams.get('search'));
 		    document.querySelector('input').value = s;
 		    display_recipes(find_recipes(data, s));
@@ -25,48 +25,53 @@ function drf() {
 	    } else {
 		display_recipes(data);
 	    }
-	    let stateObj = { search: "" };
+	    let stateObj = { search: '' };
 	    let input = document.querySelector('input');
 	    input.onkeyup = function() {
 		display_recipes(find_recipes(data, input.value));
-		history.pushState(stateObj, "search", "?search=" + input.value);
+		history.pushState(stateObj, 'search', '?search=' + input.value);
 	    };
 	} else {
-	    console.log("server error - no recipes");
+	    console.log('server error - no recipes');
 	}
     };
-
     request.onerror = function() {
-	console.log("connection error");
+	console.log('connection error');
     };
-
     request.send();
+}
+
+// latinise from https://stackoverflow.com/a/9667817/4074877
+function test_latinised(regex, text) {
+    if (regex.test(text.latinise()) || regex.test(text)) {
+	return true;
+    } else {
+	return false;
+    }
 }
 
 function find_recipes(recipes, text) {
     let filtered = [];
     if (text != '') {
 	let tokens = text.split(' ');
+	// get rid of empty tokens
 	tokens = tokens.filter(function(n) {return n});
-	filtered = recipes.filter(function(element, index, array) {
+	filtered = recipes.filter(function(r, index, array) {
 	    let hits = new Array();
 	    for (const token in tokens) {
 		hits[tokens[token]] = 0;
 		let regex = new RegExp(tokens[token], "i");
-		// latinise from https://stackoverflow.com/a/9667817/4074877
-		if (regex.test(element['name'].latinise()) ||
-		    regex.test(element['name'])) {
+		if (test_latinised(regex, r.name)) {
 		    hits[tokens[token]] += 1;
 		} else {
-		    for (const item in element["ingredients"]) {
-			if (regex.test(element["ingredients"][item]["ingredient"].latinise()) ||
-			    regex.test(element["ingredients"][item]["ingredient"])) {
+		    for (const item in r.ingredients) {
+			let ingredient = r.ingredients[item].ingredient;
+			if (test_latinised(regex, ingredient)) {
 			    hits[tokens[token]] += 1;
 			    break;
 			}
 		    }
-		    if (regex.test(element["source"].latinise()) ||
-			regex.test(element["source"])) {
+		    if (test_latinised(regex, r.source)) {
 			hits[tokens[token]] += 1;
 		    }
 		}
@@ -76,7 +81,7 @@ function find_recipes(recipes, text) {
 		    return false;
 		}
 	    }
-	    return(true);
+	    return true;
 	});
     } else {
         filtered = recipes;
@@ -88,8 +93,8 @@ function display_recipes(filtered) {
     Array.prototype.forEach.call(document.querySelectorAll('dl'), function(el, i){
 	el.parentNode.removeChild(el);
     });
-    document.querySelector('span#count').textContent = filtered.length;
-    let html = "<dl>";
+    let c = document.querySelector('span#count');
+    c.textContent = filtered.length;
     filtered.sort(function(a,b) {
 	let nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase()
 	if (nameA < nameB) {
@@ -100,19 +105,23 @@ function display_recipes(filtered) {
 	}
 	return 0 //default return value (no sorting)
     });
+    let html = "<dl>";
     for (const recipe in filtered) {
-	html = html +  "<dt><span class='name'>" + filtered[recipe]["name"] + "</span><span class='source'>" + filtered[recipe]["source"] + "</span></dt>";
-	html = html +  "<dd>";
-	for (item in filtered[recipe]["ingredients"]) {
-	    html = html + '<span id="ingredient">' + filtered[recipe]["ingredients"][item]["ingredient"] + '</span>';
-	    html = html + ": ";
-	    html = html + filtered[recipe]["ingredients"][item]["amount"];
-	    html = html + "<br />";
+	let r = filtered[recipe];
+	html += "<dt>";
+	html += "<span class='name'>" + r.name + "</span>";
+	html += "<span class='source'>" + r.source + "</span>";
+	html += "</dt>";
+	html += "<dd>";
+	for (item in r.ingredients) {
+	    let i = r.ingredients[item];
+	    html += '<span id="ingredient">' + i.ingredient + '</span>: ';
+	    html += i.amount + "<br />";
 	}
-	html = html + "</dd>";
+	html += "</dd>";
     }
-    html = html + "</dl>";
-    document.querySelector('span#count').insertAdjacentHTML('afterend', html);
+    html += "</dl>";
+    c.insertAdjacentHTML('afterend', html);
 }
 
 ready(drf);
