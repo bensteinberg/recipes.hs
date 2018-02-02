@@ -85,6 +85,15 @@ function find_recipes(recipes, text) {
     return filtered;
 }
 
+function link_source(text) {
+    // not great, but:
+    if (text.startsWith("http")) {
+	return "<a href='" + text + "'>" + text.split("//")[1] + "</a>";
+    } else {
+	return text;
+    }
+}
+
 function display_recipes(filtered) {
     Array.prototype.forEach.call(document.querySelectorAll("dl"), function (el) {
         el.parentNode.removeChild(el);
@@ -99,7 +108,7 @@ function display_recipes(filtered) {
         let r = filtered[recipe];
         html += "<dt>";
         html += "<span class='name'>" + r.name + "</span>";
-        html += "<span class='source'>" + r.source + "</span>";
+        html += "<span class='source'>" + link_source(r.source) + "</span>";
         html += "</dt>";
         html += "<dd>";
         for (const item in r.ingredients) {
