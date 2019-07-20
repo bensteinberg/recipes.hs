@@ -1,0 +1,12 @@
+[Unit]
+Description=Recipe Index
+After=network.target
+
+[Service]
+WorkingDirectory=/usr/local/share/recipes
+ExecStart=/usr/local/share/recipes/recipes
+Type=simple
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
