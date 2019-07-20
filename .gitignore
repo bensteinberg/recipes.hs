@@ -3,3 +3,4 @@
 # put recipes.yaml here
 /data/
 /dist/
+/build/

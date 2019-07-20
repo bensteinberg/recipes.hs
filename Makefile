@@ -10,18 +10,18 @@ ifeq ($(UNAME), Darwin)
 BINARY := `stack exec -- which recipes`
 endif
 
-dist:
-	mkdir -p dist/site
-	mkdir dist/data
-	cp $(BINARY) dist/
-	cp -f site/index.html dist/site/
-	cp -f site/recipes.css dist/site/
-	cp -f site/recipes.js dist/site/
-	cp -f vendor/latinise.min.js dist/site/
-	cp -f data/recipes.yaml dist/data/
+build:
+	mkdir -p build/site
+	mkdir build/data
+	cp $(BINARY) build/
+	cp -f site/index.html build/site/
+	cp -f site/recipes.css build/site/
+	cp -f site/recipes.js build/site/
+	cp -f vendor/latinise.min.js build/site/
+	cp -f data/recipes.yaml build/data/
 
-distclean:
-	rm -rf dist/
+buildclean:
+	rm -rf build/
 
 run:
-	cd dist ; stack exec recipes
+	cd build ; stack exec recipes
