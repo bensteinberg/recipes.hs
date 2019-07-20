@@ -3,7 +3,7 @@ version:             0.1.0.0
 -- synopsis:
 -- description:
 homepage:            https://github.com/githubuser/recipes#readme
-license:             BSD3
+license:             GPL
 license-file:        LICENSE.txt
 author:              Ben Steinberg
 maintainer:          ben@potswift.org
