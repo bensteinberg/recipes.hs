@@ -1,16 +1,17 @@
 name:                recipes
-version:             0.1.0.0
--- synopsis:
+version:             1.0.0.0
+synopsis:            An ingredient index
 -- description:
-homepage:            https://github.com/githubuser/recipes#readme
+homepage:            https://github.com/bensteinberg/recipes.hs
 license:             GPL
 license-file:        LICENSE.txt
 author:              Ben Steinberg
 maintainer:          ben@potswift.org
-copyright:           2018 Ben Steinberg
+copyright:           2019 Ben Steinberg
 category:            Web
 build-type:          Simple
 extra-source-files:  README.md
+                   , recipes.service
 cabal-version:       >=1.10
 
 library
@@ -58,4 +59,4 @@ test-suite recipes-test
 
 source-repository head
   type:     git
-  location: https://github.com/githubuser/recipes
+  location: https://github.com/bensteinberg/recipes.hs
