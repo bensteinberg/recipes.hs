@@ -2,7 +2,7 @@ const path = require('path');
 const PATHS = {
     app: path.resolve(__dirname,'frontend'),
     vendor: path.resolve(__dirname,'vendor'),
-    build: path.resolve(__dirname,'build/site')
+    build: path.resolve(__dirname,'build/frontend')
 };
 module.exports = {
     entry: {

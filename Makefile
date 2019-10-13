@@ -10,13 +10,13 @@ ifeq ($(UNAME), Darwin)
 BINARY := `stack exec -- which recipes`
 endif
 
-build:
-	mkdir -p build/site
+build: buildclean
+	mkdir -p build/frontend
 	mkdir build/data
 	cp $(BINARY) build/
-	cp -f frontend/index.html build/site/
 	npm run build
-	cp -f frontend/recipes.css build/site/
+	cp -f frontend/index.html build/frontend/
+	cp -f frontend/recipes.css build/frontend/
 	cp -f data/recipes.yaml build/data/
 
 buildclean:

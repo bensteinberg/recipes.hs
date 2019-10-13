@@ -73,7 +73,7 @@ server1 = do
   return (Recipes $ fromMaybe file)
 
 server2 :: Server StaticAPI
-server2 = serveDirectoryWebApp "site"
+server2 = serveDirectoryWebApp "frontend"
 
 server3 :: Server ComboAPI
 server3 = server1 :<|> server2

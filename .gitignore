@@ -1,7 +1,6 @@
 # Stack uses this directory as scratch space.
 /.stack-work/
 # put recipes.yaml here
-/data/
-/dist/
-/build/
+data/
+build/
 node_modules/
