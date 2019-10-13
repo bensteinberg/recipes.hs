@@ -57,7 +57,4 @@ whatever you like.
 Notes
 -----
 
-The executable `recipes-psGenerator` in `recipes.cabal` is an
-experiment, is not in use, and may be removed.
-
 The tests only test that the application is running, really.
