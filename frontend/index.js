@@ -16,7 +16,7 @@ new Vue({
     },
     mounted: function () {
         this.search = new URLSearchParams(window.location.search).get("search") || '';
-        axios.get('/recipes')
+        axios.get('recipes')
             .then(response => this.recipes = response.data)
             .catch(error => {
                 console.log(error)
