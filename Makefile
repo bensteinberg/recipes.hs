@@ -14,10 +14,9 @@ build:
 	mkdir -p build/site
 	mkdir build/data
 	cp $(BINARY) build/
-	cp -f site/index.html build/site/
-	cp -f site/recipes.css build/site/
-	cp -f site/recipes.js build/site/
-	cp -f vendor/latinise.min.js build/site/
+	cp -f frontend/index.html build/site/
+	npm run build
+	cp -f frontend/recipes.css build/site/
 	cp -f data/recipes.yaml build/data/
 
 buildclean:

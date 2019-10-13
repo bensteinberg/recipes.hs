@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Recipes</title>
+    <link rel="stylesheet" href="recipes.css">
+    <meta charset="UTF-8"> 
+  </head>
+  <body>
+      <h1>Recipes</h1>
+      <div id="app">
+        <section v-if="errored">
+          <p>Trouble.</p>
+        </section>
+        <section v-else>
+          <div v-if="loading">Loading...</div>
+          <div v-else>
+            <input v-model="search" name="search" type="text" id="search" autocomplete="off">
+            <span id="count">{{ filteredRecipes.length }}</span>
+            <dl>
+              <template v-for="recipe in sortedRecipes">
+                <dt>
+                  <span class="name">{{ recipe.name }}</span>
+                  <span class="source" v-html="$options.filters.toURL(recipe.source)"></span>
+                </dt>
+                <dd>
+                  <template v-for="item in recipe.ingredients">
+                    <span id="ingredient">{{ item.ingredient }}</span>:
+                    {{ item.amount }}<br />
+                  </template>
+                </dd>
+              </template>
+            </dl>
+          </div>
+        </section>
+      </div>
+      <script src="bundle.js"></script>
+  </body>
+</html>
