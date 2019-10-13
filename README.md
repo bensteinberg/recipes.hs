@@ -15,9 +15,10 @@ Stack](https://docs.haskellstack.org/en/stable/README/) and run `stack setup`
 3. `stack build` to build the application
 4. Make a data file in `data/recipes.yaml` -- see below.
 5. `stack test` if you like
-6. `make build` to prepare the application for deployment
-7. After `make run`, the application should be running locally, at [http://127.0.0.1:26544/index.html](http://127.0.0.1:26544/index.html).
-7. `rsync -avz build/ you@yourserver:/some/directory/`
+6. Install `npm` and run `npm install` (the front end is now written in Vue and built by webpack)
+7. `make build` to prepare the application for deployment
+8. After `make run`, the application should be running locally, at [http://127.0.0.1:26544/index.html](http://127.0.0.1:26544/index.html)
+9. `rsync -avz build/ you@yourserver:/some/directory/` (but note that the executable built locally may not be correct for your deployment environment)
 
 You can run the application informally on `yourserver` with `cd
 /some/directory ; ./recipes` inside tmux or screen; systemd users
