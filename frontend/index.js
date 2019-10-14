@@ -33,37 +33,18 @@ new Vue({
     computed: {
         filteredRecipes: function () {
             // latinise from https://stackoverflow.com/a/9667817/4074877
-            function test_latinised(regex, text) {
-                return (regex.test(text.latinise()) || regex.test(text));
+            String.prototype.normalise = function() {
+                return this.latinise().toLowerCase();
             }
-            let tokens = this.search.split(" ");
-            // get rid of empty tokens
-            tokens = tokens.filter(function (n) {return n;});
+            let tokens = this.search.split(" ").filter(a => a);
             return this.recipes.filter(function(r) {
-                let hits = [];
-                for (const token in tokens) {
-                    hits[tokens[token]] = 0;
-                    let regex = new RegExp(tokens[token], "i");
-                    if (test_latinised(regex, r.name)) {
-                        hits[tokens[token]] += 1;
-                    } else {
-                        for (const item in r.ingredients) {
-                            let ingredient = r.ingredients[item].ingredient;
-                            if (test_latinised(regex, ingredient)) {
-                                hits[tokens[token]] += 1;
-                            }
-                        }
-                        if (test_latinised(regex, r.source)) {
-                            hits[tokens[token]] += 1;
-                        }
-                    }
-                }
-                for (const token in tokens) {
-                    if (hits[tokens[token]] === 0) {
-                        return false;
-                    }
-                }
-                return true;
+                let targets = r.ingredients.map(i => i.ingredient.normalise())
+                    .concat([r.name.normalise(), r.source.normalise()]);
+                return tokens.map(
+                    token => targets.map(
+                        target => target.includes(token.normalise()))
+                        .some(a => a))
+                    .every(a => a);
             });
         },
         sortedRecipes: function() {
