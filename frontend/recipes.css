@@ -1,27 +1,28 @@
 html {
-     font-family: Verdana;
+    font-family: Verdana;
 }
 
 body {
-     padding-left: 15em;
+    padding-left: 15em;
 }
 
-dt {
-   width: 30em;
-   background-color: lightgray;
-   font-size: 120%;
-   padding: 10px;
+h2 {
+    width: 30em;
+    background-color: lightgray;
+    font-size: 120%;
+    padding: 10px;
 }
 
-dd {
-   width: 30em;
+p {
+    width: 30em;
+    margin-left: 10px;
 }
 
 span#ingredient {
-	      font-weight: bold;
+    font-weight: bold;
 }
 
 span.source {	
-	    font-size: 80%;
-	    float: right;
+    font-size: 80%;
+    float: right;
 }
