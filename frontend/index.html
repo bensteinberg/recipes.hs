@@ -16,18 +16,19 @@
           <div v-else>
             <input v-model="search" name="search" type="text" id="search" autocomplete="off">
             <span id="count">{{ filteredRecipes.length }}</span>
-            <section>
               <template v-for="recipe in sortedRecipes">
-                <h2>
-                  <span class="name">{{ recipe.name }}</span>
-                  <span class="source" v-html="$options.filters.toURL(recipe.source)"></span>
-                </h2>
-                <p>
-                  <template v-for="item in recipe.ingredients">
-                    <span id="ingredient">{{ item.ingredient }}</span>:
-                    {{ item.amount }}<br />
-                  </template>
-                </p>
+                <section>
+                  <h2>
+                    <span class="name">{{ recipe.name }}</span>
+                    <span class="source" v-html="$options.filters.toURL(recipe.source)"></span>
+                  </h2>
+                  <p>
+                    <template v-for="item in recipe.ingredients">
+                      <span id="ingredient">{{ item.ingredient }}</span>:
+                      {{ item.amount }}<br />
+                    </template>
+                  </p>
+                </section>
               </template>
             </section>
           </div>
