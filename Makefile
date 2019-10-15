@@ -24,3 +24,8 @@ buildclean:
 
 run:
 	cd build ; stack exec recipes
+
+stretch:
+	docker build . -t stretchbuild
+	STRETCHBINARY=`docker run stretchbuild stack exec -- whereis recipes | cut -d' ' -f2`
+	docker cp `docker ps -alq`:$STRETCHBINARY recipes.stretch

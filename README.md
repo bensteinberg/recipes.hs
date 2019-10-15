@@ -18,7 +18,7 @@ Stack](https://docs.haskellstack.org/en/stable/README/) and run `stack setup`
 6. Install `npm` and run `npm install` (the front end is now written in Vue and built by webpack)
 7. `make build` to prepare the application for deployment
 8. After `make run`, the application should be running locally, at [http://127.0.0.1:26544/index.html](http://127.0.0.1:26544/index.html)
-9. `rsync -avz build/ you@yourserver:/some/directory/` (but note that the executable built locally may not be correct for your deployment environment)
+9. `rsync -avz build/ you@yourserver:/some/directory/` (but note that the executable built locally may not be correct for your deployment environment; see below)
 
 You can run the application informally on `yourserver` with `cd
 /some/directory ; ./recipes` inside tmux or screen; systemd users
@@ -33,6 +33,10 @@ setup, try a stanza like
             include /etc/nginx/proxy_params;
         }
  ```
+
+To build for another target, try something like `make stretch`, which
+should put the binary `recipes.stretch` in this directory -- see the
+[Makefile](Makefile) and [Dockerfile](Dockerfile) for how this works.
 
 Data file format
 ----------------
