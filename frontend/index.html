@@ -17,7 +17,7 @@
             <input v-model="search" name="search" type="text" id="search" autocomplete="off">
             <span id="count">{{ filteredRecipes.length }}</span>
               <template v-for="recipe in sortedRecipes">
-                <section>
+                <section v-bind:aria-label="recipe.name">
                   <h2>
                     <span class="name">{{ recipe.name }}</span>
                     <span class="source" v-html="$options.filters.toURL(recipe.source)"></span>
