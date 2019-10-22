@@ -11,7 +11,7 @@ new Vue({
     },
     filters: {
         toURL(s) {
-            return (s.startsWith('http') ? `<a href="${s}">${s}</a>` : s);
+            return (s.startsWith('http') ? `<a href="${s}">${new URL(s).hostname}</a>` : s);
         }
     },
     mounted: function () {
