@@ -34,8 +34,9 @@ setup, try a stanza like
         }
  ```
 
-To build for another target, try something like `make stretch`, which
-should put the binary `recipes.stretch` in this directory -- see the
+To build for another target, try `make debian_stretch` or `make
+debian_buster`, which should put the binaries `recipes.stretch` and
+`recipes.buster`, respectively, in this directory -- see the
 [Makefile](Makefile) and [Dockerfile](Dockerfile) for how this works.
 
 Data file format

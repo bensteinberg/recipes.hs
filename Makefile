@@ -25,7 +25,14 @@ buildclean:
 run:
 	cd build ; stack exec recipes
 
-stretch:
-	docker build . -t stretchbuild
-	STRETCHBINARY=`docker run stretchbuild stack exec -- whereis recipes | cut -d' ' -f2`
-	docker cp `docker ps -alq`:$STRETCHBINARY recipes.stretch
+# unfortunately, for `docker ps -alq` to produce something useful, we have to do a `docker run` first,
+# and I haven't been able to put the path in a variable that's usable later
+debian_stretch:
+	docker build . -f Dockerfile.stretch -t stretchbuild
+	path=$(shell docker run stretchbuild:latest stack exec -- whereis recipes | cut -d' ' -f2)
+	docker cp $(shell docker ps -alq):$(shell docker run stretchbuild:latest stack exec -- whereis recipes | cut -d' ' -f2) recipes.stretch
+
+debian_buster:
+	docker build . -f Dockerfile.buster -t busterbuild
+	path=$(shell docker run busterbuild:latest stack exec -- whereis recipes | cut -d' ' -f2)
+	docker cp $(shell docker ps -alq):$(shell docker run busterbuild:latest stack exec -- whereis recipes | cut -d' ' -f2) recipes.buster
