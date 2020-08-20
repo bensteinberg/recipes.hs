@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "serialize-javascript": "^2.1.2",
+    "serialize-javascript": "^4.0.0",
     "vue": "^2.6.11"
   }
 }
