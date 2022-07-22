@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import axios from 'axios';
 
 new Vue({
     el: '#app',
@@ -16,8 +15,9 @@ new Vue({
     },
     mounted: function () {
         this.search = new URLSearchParams(window.location.search).get("search") || '';
-        axios.get('recipes')
-            .then(response => this.recipes = response.data)
+        fetch('recipes')
+            .then(response => response.json())
+            .then(json => this.recipes = json)
             .catch(error => {
                 console.log(error)
                 this.errored = true
