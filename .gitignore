@@ -4,3 +4,6 @@
 data/
 build/
 node_modules/
+# executables
+recipes.buster
+recipes.bullseye

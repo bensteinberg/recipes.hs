@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:bullseye
 
 RUN apt-get update \
     && apt-get install -y curl
@@ -11,7 +11,7 @@ RUN curl -sSL https://get.haskellstack.org/ | sh
 
 RUN stack setup
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get install -y nodejs
 
 COPY . /recipes
