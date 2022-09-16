@@ -58,7 +58,7 @@ this:
 ```
 
 The source can be a page number, title and page number, name, URL, or
-whatever you like.
+whatever you like. Each entry can optionally have a list of `tags`.
 
 Notes
 -----

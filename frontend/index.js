@@ -41,6 +41,9 @@ createApp({
       return this.recipes.filter(function(r) {
         let targets = r.ingredients.map(i => i.ingredient.normalise())
             .concat([r.name.normalise(), r.source.normalise()]);
+	if (r.tags) {
+	  targets = targets.concat(r.tags.map(i => i.normalise()));
+	}
         return tokens.map(
           token => targets.map(
             target => target.includes(token.normalise()))

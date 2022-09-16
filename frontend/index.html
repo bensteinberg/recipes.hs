@@ -27,6 +27,14 @@
                       <span id="ingredient">{{ item.ingredient }}</span>:
                       {{ item.amount }}<br />
                     </template>
+		    <br />
+		    <span v-if="recipe.tags">
+		      <template v-for="tag in recipe.tags">
+			<a :href="'?search='+tag" class="label">
+			  <span class="label" :class="tag === 'typo' ? 'danger' : 'info'">{{ tag }}</span>
+			</a>&nbsp;
+		      </template>
+		    </span>
                   </p>
                 </section>
               </template>

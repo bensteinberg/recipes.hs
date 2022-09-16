@@ -26,6 +26,7 @@ data Recipe = Recipe {
     name :: T.Text
   , source :: T.Text
   , ingredients :: [Ingredient]
+  , tags :: Maybe [T.Text]
 } deriving (Show, Generic)
 
 newtype Recipes = Recipes [Recipe] deriving Generic
