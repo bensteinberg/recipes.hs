@@ -38,8 +38,11 @@ a.label {
   text-decoration: none;
 }
 
-.success {background-color: #04AA6D;} /* Green */
-.info {background-color: #2196F3;} /* Blue */
-.warning {background-color: #ff9800;} /* Orange */
-.danger {background-color: #f44336;} /* Red */
-.other {background-color: #e7e7e7; color: black;} /* Gray */
+/* colors from
+   https://colorbrewer2.org/#type=diverging&scheme=Spectral&n=5
+*/
+.success {background-color: #abdda4;} /* green  */
+.info {background-color: #2b83ba;}    /* blue   */
+.warning {background-color: #fdae61;} /* orange */
+.danger {background-color: #d7191c;}  /* red    */
+.other {background-color: #ffffbf;}   /* yellow */

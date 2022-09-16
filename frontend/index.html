@@ -31,7 +31,7 @@
 		    <span v-if="recipe.tags">
 		      <template v-for="tag in recipe.tags">
 			<a :href="'?search='+tag" class="label">
-			  <span class="label" :class="tag === 'typo' ? 'danger' : 'info'">{{ tag }}</span>
+			  <span class="label" :class="tagClass(tag)">{{ tag.slice(4) }}</span>
 			</a>&nbsp;
 		      </template>
 		    </span>
