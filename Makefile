@@ -36,3 +36,8 @@ debian_bullseye:
 	docker build . -f Dockerfile.bullseye -t bullseyebuild
 	path=$(shell docker run bullseyebuild:latest stack exec -- whereis recipes | cut -d' ' -f2)
 	docker cp $(shell docker ps -alq):$(shell docker run bullseyebuild:latest stack exec -- whereis recipes | cut -d' ' -f2) recipes.bullseye
+
+debian_bookworm:
+	docker build . -f Dockerfile.bookworm -t bookwormbuild
+	path=$(shell docker run bookwormbuild:latest stack exec -- whereis recipes | cut -d' ' -f2)
+	docker cp $(shell docker ps -alq):$(shell docker run bookwormbuild:latest stack exec -- whereis recipes | cut -d' ' -f2) recipes.bookworm
