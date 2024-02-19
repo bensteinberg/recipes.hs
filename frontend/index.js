@@ -11,7 +11,7 @@ createApp({
   },
   filters: {
     toURL(s) {
-      return (s.startsWith('http') ? `<a href="${s}">${new URL(s).hostname}</a>` : s);
+       return s.split(" ").map((w) => w.startsWith('http') ? `<a href="${w}">${new URL(w).hostname}</a>` : w).join(" ");
     }
   },
   mounted: function () {
