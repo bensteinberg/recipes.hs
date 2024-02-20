@@ -34,9 +34,8 @@ setup, try a stanza like
         }
  ```
 
-To build for another target, try `make debian_buster` or `make
-debian_bullseye`, which should put the binaries `recipes.buster` and
-`recipes.bullseye`, respectively, in this directory -- see the
+To build for another target, try `make debian_bookworm`, which should
+put the binary `recipes.bookworm` in this directory -- see the
 [Makefile](Makefile) and Dockerfiles for how this works.
 
 Data file format
