@@ -1,21 +1,13 @@
-html {
-    font-family: Verdana;
-}
-
-body {
-    padding-left: 15em;
-}
-
 h2 {
-    width: 30em;
+    width: 80%;
     background-color: lightgray;
     font-size: 120%;
     padding: 10px;
+    border-radius: 0.25rem;
 }
 
-p {
-    width: 30em;
-    margin-left: 10px;
+input#search {
+    width: 80%;
 }
 
 span#count {
@@ -31,22 +23,26 @@ span.source {
     float: right;
 }
 
-span.label {
-  color: white;
-  padding: 6px;
-  border-radius: 10px;
-  font-size: 90%;
-}
-
-a.label {
-  text-decoration: none;
-}
-
 /* colors from
    https://colorbrewer2.org/#type=diverging&scheme=Spectral&n=5
 */
-.success {background-color: #abdda4;} /* green  */
-.info {background-color: #2b83ba;}    /* blue   */
-.warning {background-color: #fdae61;} /* orange */
-.danger {background-color: #d7191c;}  /* red    */
-.other {background-color: #ffffbf;}   /* yellow */
+a.success {
+    background-color: #abdda4;
+    --pico-border-color: #abdda4;
+} /* green  */
+a.info {
+    background-color: #2b83ba;
+    --pico-border-color: #2b83ba;
+}    /* blue   */
+a.warning {
+    background-color: #fdae61;
+    --pico-border-color: #fdae61;
+} /* orange */
+a.danger {
+    background-color: #d7191c;
+    --pico-border-color: #d7191c;
+}  /* red    */
+a.other {
+    background-color: #ffffbf;
+    --pico-border-color: #ffffbf;
+}   /* yellow */

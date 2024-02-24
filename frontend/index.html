@@ -3,9 +3,11 @@
   <head>
     <title>Recipes</title>
     <link rel="stylesheet" href="recipes.css">
+    <link rel="stylesheet" href="pico.min.css">
     <meta charset="UTF-8"> 
   </head>
   <body>
+    <main class="container">
       <h1>Recipes</h1>
       <div id="app">
         <section v-if="errored">
@@ -30,9 +32,7 @@
 		    <br />
 		    <span v-if="recipe.tags">
 		      <template v-for="tag in recipe.tags">
-			<a :href="'?search='+tag" class="label">
-			  <span class="label" :class="tagClass(tag)">{{ tag.slice(4) }}</span>
-			</a>&nbsp;
+			<a :href="'?search='+tag" role="button" class="label" :class="tagClass(tag)">{{ tag.slice(4) }}</a>&nbsp;
 		      </template>
 		    </span>
                   </p>
@@ -42,6 +42,7 @@
           </div>
         </section>
       </div>
-      <script src="bundle.js"></script>
+<script src="bundle.js"></script>
+</main>
   </body>
 </html>
