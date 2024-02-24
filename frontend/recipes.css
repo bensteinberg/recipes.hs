@@ -18,6 +18,10 @@ p {
     margin-left: 10px;
 }
 
+span#count {
+    padding-left: 0.5em;
+}
+
 span#ingredient {
     font-weight: bold;
 }
