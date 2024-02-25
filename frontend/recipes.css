@@ -15,6 +15,11 @@ span.source {
     float: right;
 }
 
+a.label {
+    font-size: 80%;
+    padding: 0.3em 0.5em;
+}
+
 /* colors from
    https://colorbrewer2.org/#type=diverging&scheme=Spectral&n=5
 */
