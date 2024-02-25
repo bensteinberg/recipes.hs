@@ -47,18 +47,25 @@ createApp({
       String.prototype.normalise = function() {
         return this.latinise().toLowerCase();
       }
-      let tokens = this.search.split(" ").filter(a => a);
+      let withTokens = this.search.split(" ").filter(a => !a.startsWith("-"));
+      let withoutTokens = this.search.split(" ").filter(
+	a => a.startsWith("-")
+      ).map(function(t) {return t.slice(1)});
       return this.augmentedRecipes.filter(function(r) {
         let targets = r.ingredients.map(i => i.ingredient.normalise())
             .concat([r.name.normalise(), r.source.normalise()]);
 	if (r.tags) {
 	  targets = targets.concat(r.tags.map(i => i.normalise()));
 	}
-        return tokens.map(
+        return withTokens.map(
           token => targets.map(
-            target => target.includes(token.normalise()))
-            .some(a => a))
-          .every(a => a);
+            target => target.includes(token.normalise())
+	  ).some(a => a)
+	).every(a => a) && !(withoutTokens.map(
+          token => targets.map(
+            target => target.includes(token.normalise())
+	  ).some(a => a)
+	).some(a => a));
       });
     },
     sortedRecipes: function() {
