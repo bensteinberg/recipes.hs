@@ -16,15 +16,15 @@
         <section v-else>
           <div v-if="loading">Loading...</div>
           <div v-else>
-            <input v-model="search" v-on:input="search = $event.target.value" name="search" type="text" id="search" autocomplete="off">
+            <input v-model="search" v-on:input="search = $event.target.value" name="search" type="search" placeholder="Search by name, ingredient, or source" id="search" autocomplete="off">
             <span id="count">{{ filteredRecipes.length }}</span>
               <template v-for="recipe in sortedRecipes">
                 <section v-bind:aria-label="recipe.name">
-                  <h2>
-                    <span class="name">{{ recipe.name }}</span>
-                    <span class="source" v-html="$options.filters.toURL(recipe.source)"></span>
-                  </h2>
-                  <p>
+                  <article>
+                    <header>
+                      <span class="name">{{ recipe.name }}</span>
+                      <span class="source" v-html="$options.filters.toURL(recipe.source)"></span>
+		    </header>
                     <template v-for="item in recipe.ingredients">
                       <span id="ingredient">{{ item.ingredient }}</span>:
                       {{ item.amount }}<br />
@@ -35,7 +35,7 @@
 			<a :href="'?search='+tag" role="button" class="label" :class="tagClass(tag)">{{ tag.slice(4) }}</a>&nbsp;
 		      </template>
 		    </span>
-                  </p>
+                  </article>
                 </section>
               </template>
             </section>
