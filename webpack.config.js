@@ -17,5 +17,10 @@ module.exports = {
     alias: {
       'vue': 'vue/dist/vue.esm-browser.prod.js'
     }
+  },
+  mode: 'production',
+  optimization: {
+    nodeEnv: 'production',
+    minimize: true
   }
 };
