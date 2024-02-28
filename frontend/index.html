@@ -17,7 +17,7 @@
           <div v-if="loading">Loading...</div>
           <div v-else>
             <input v-model="search" v-on:input="search = $event.target.value" name="search" type="search" placeholder="Search by name, ingredient, or source" id="search" autocomplete="off">
-            <span id="count">{{ filteredRecipes.length }}</span>
+            <span v-cloak id="count">{{ filteredRecipes.length }}</span>
             <template v-for="recipe in sortedRecipes">
               <section v-bind:aria-label="recipe.name">
                 <article>
