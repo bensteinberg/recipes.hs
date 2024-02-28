@@ -17,7 +17,7 @@ build: buildclean
 	npm run build
 	cp -f frontend/index.html build/frontend/
 	cp -f frontend/recipes.css build/frontend/
-	cp -f frontend/pico.min.css build/frontend/
+	cp -f frontend/pico.classless.min.css build/frontend/
 	cp -f data/recipes.yaml build/data/
 
 buildclean:
