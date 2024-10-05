@@ -30,4 +30,5 @@ run:
 # and I haven't been able to put the path in a variable that's usable later
 debian_bookworm:
 	docker build . -f Dockerfile.bookworm -t bookwormbuild
+	docker run bookwormbuild:latest stack exec -- whereis recipes | cut -d' ' -f2
 	docker cp $(shell docker ps -alq):$(shell docker run bookwormbuild:latest stack exec -- whereis recipes | cut -d' ' -f2) recipes.bookworm
