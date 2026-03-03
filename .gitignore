@@ -8,3 +8,4 @@ node_modules/
 recipes.buster
 recipes.bullseye
 recipes.bookworm
+recipes.trixie
